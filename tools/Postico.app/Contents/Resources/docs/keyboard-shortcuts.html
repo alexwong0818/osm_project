@@ -1,0 +1,220 @@
+<!DOCTYPE html><html><head>
+	<meta charset=utf-8>
+	<title>Keyboard Shortcuts</title>
+	<link rel=stylesheet href=style.css>
+</head><body>
+	<h1>Keyboard Shortcuts in Postico</h1>
+
+	<p>
+		This page describes most keyboard commands supported by Postico.
+		Standard Mac OS shortcuts are not included to keep the list manageable;
+		I assume that you are familiar with them anyway.
+	</p>
+	
+	<p>
+		The easiest way to discover keyboard shortcuts is to browse through the application menus.
+		I mention this because people are increasingly ignoring the wonderful menu bar at the top of the screen.
+		Some buttons also have shortcuts; just hover over them and the tooltip will tell you.
+	</p>
+	
+	<p>
+		I've tried to follow platform conventions as much as possible when picking these keyboard shortcuts.
+		The shortcuts should feel familiar to most people working on a Mac.
+	</p>
+	
+	<p>
+		Postico has no built-in feature to change keyboard shortcuts.
+		However, you can change any keyboard shortcut in System Preferences.
+		Go to Keyboard → Shortcuts → App Shortcuts and you can change the shortcuts for any app on your Mac.
+	</p>
+
+	<h2>General Navigation</h2>
+	<dl>
+		<dt>⌘N</dt>
+		<dd>Opens the favorite window. (when you want to make a new connection)</dd>
+
+		<dt>⌥⌘N</dt>
+		<dd>Opens a new window for the current connection.</dd>
+
+		<dt>⌘T</dt>
+		<dd>Opens a new tab for the current connection. (requires macOS 10.12 Sierra or later)</dd>
+
+		<dt>⌘1-9</dt>
+		<dd>Switch to tab 1 to 9.</dd>
+
+		<dt>⌘+</dt>
+		<dd>Increase font size.</dd>
+
+		<dt>⌘-</dt>
+		<dd>Decrease font size.</dd>
+
+		<dt>⌥⌘←</dt>
+		<dd>Navigate backwards in history.</dd>
+		
+		<dt>⌥⌘→</dt>
+		<dd>Navigate forwards in history.</dd>
+		
+		<dt>⌥⌘↑</dt>
+		<dd>Navigate up in the hierarchy (eg. table → database → server)</dd>
+
+		<dt>⌥⌘↓</dt>
+		<dd>Navigate down in the hierarchy (open the currently selected item)</dd>
+		
+		<dt>⌘R</dt>
+		<dd>Reload. This command reloads the current view, the sidebar, and purges all cached views (except those with unsaved changes)</dd>
+		
+		<dt>⌥⌘R</dt>
+		<dd>Reload current view only.</dd>
+
+		<dt>⌘.</dt>
+		<dd>Cancel current query. Note that it can take some time until the command reaches the server, and the server might not cancel the query immediately. Also, this command has no effect if the query has already completed but Postico is still busy downloading the results.</dd>
+
+		<dt>⌥⌘.</dt>
+		<dd>Disconnect from the server. All pending queries will be cancelled. This is sometimes the only way to abort an operation. Postico will reconnect to the server automatically as needed.</dd>
+
+		<dt>⌥⌘F</dt>
+		<dd>Filter tables or rows.</dd>
+		
+		<dt>⇧⌘F</dt>
+		<dd>Filter the list of tables in the sidebar.</dd>
+		
+		<dt>⌘0</dt>
+		<dd>Show or hide the left sidebar. (That's a zero)</dd>
+
+		<dt>⌥⌘0</dt>
+		<dd>Show or hide the right sidebar.</dd>
+
+		<dt>^⌘F</dt>
+		<dd>Enter Full Screen mode.</dd>
+		
+	</dl>
+	
+	<h2>Table View</h2>
+	
+	<dl>
+		<dt>⌥⌘T</dt>
+		<dd>Switch between table contents and structure</dd>
+
+		<dt>⇧⌘N</dt>
+		<dd>Insert a new row</dd>
+		
+		<dt>⌘D</dt>
+		<dd>Duplicate selected row(s)</dd>
+		
+		<dt>⌘S</dt>
+		<dd>Save changes</dd>
+		
+		<dt>⌥⌘F</dt>
+		<dd>Show or hide the table filter bar.</dd>
+
+		<dt>⇥</dt>
+		<dd>Edit next field (move right)</dd>
+		
+		<dt>⇧⇥</dt>
+		<dd>Edit previous field (move left)</dd>
+
+		<dt>↑</dt>
+		<dd>Edit field above (move up)</dd>
+
+		<dt>↓</dt>
+		<dd>Edit field below (move left)</dd>
+		
+		<dt>↩</dt>
+		<dd>Commit changes to current field</dd>
+
+		<dt>esc</dt>
+		<dd>Abort editing and discard changes to current field</dd>
+
+		<dt>⌥⇥</dt>
+		<dd>Insert tab into field</dd>
+
+		<dt>⌥↩</dt>
+		<dd>Insert newline into field</dd>
+	</dl>
+
+	<h2>SQL Query View</h2>
+
+	<dl>		
+		<dt>⌘↩︎</dt>
+		<dd>Execute the current query (or the current selection, if any)</dd>
+
+		<dt>⌥⌘↩︎</dt>
+		<dd>Execute all queries in the Query View</dd>
+
+		<dt>⌘K</dt>
+		<dd>Clear results from the Query View.</dd>
+
+		<dt>⇧⌘T</dt>
+		<dd>Go the SQL Query View (used to be called the Terminal)</dd>
+		
+		<dt>⇥</dt>
+		<dd>Shift the selected line(s) to the right (increase indentation)</dd>
+		
+		<dt>⇧⇥</dt>
+		<dd>Shift the selected line(s) to the left (decrease indentation)</dd>
+		
+		<dt>⌘]</dt>
+		<dd>Alternate shortcut for shift right</dd>
+
+		<dt>⌘[</dt>
+		<dd>Alternate shortcut for shift left</dd>
+		
+		<dt>^⌘←</dt>
+		<dd>Replace the current query with the previous query from your history.</dd>
+		
+		<dt>^⌘→</dt>
+		<dd>Replace the current query with the next query from your history.</dd>
+
+		<dt>⌘/</dt>
+		<dd>Comment or uncomment the selected line(s) by prepending two dashes</dd>
+		
+		<dt>⌥⌘/</dt>
+		<dd>Comment (or uncomment) the selection with a block comment (<tt>/* */</tt>)</dd>
+
+		<dt>^H</dt>
+		<dd>Look up the current word (or selection) in <a href="https://kapeli.com/dash">Dash</a></dd>
+
+	</dl>
+
+	<h2>Alerts</h2>
+	
+	<dl>
+		<dt>↩</dt>
+		<dd>Confirm the default action</dd>
+
+		<dt>esc</dt>
+		<dd>Cancel the operation</dd>
+
+		<dt>⌘⌫</dt>
+		<dd>Use this shortcut to confirm when the alert asks you if you want to delete an object. (Return is not allowed on these alerts to avoid accidental deletions)</dd>
+	</dl>
+
+	<h2>Legend of Keyboard Symbols</h2>
+	<p>This is a list of keyboard symbols used above:</p>
+	<dl>
+		<dt>⌘</dt>
+		<dd>The Command key. Sometimes called "Apple key" since it used to have an Apple logo on older keyboards. Labelled "cmd" on newer keyboards.</dd>
+
+		<dt>⌥</dt>
+		<dd>The Option key. Labelled "option" or "alt" on modern Apple keyboards.</dd>
+
+		<dt>⇧</dt>
+		<dd>Shift. Lets You Type Capital Letters.</dd>
+
+		<dt>^</dt>
+		<dd>The Control key. Labelled "ctrl" on modern Apple keyboards.</dd>
+
+		<dt>⇥</dt>
+		<dd>The Tab key. Usually above the caps lock key. Inserts a horizontal space.</dd>
+		
+		<dt>↩</dt>
+		<dd>The Return key. Inserts a newline. Not to be confused with the "Enter" key.</dd>
+
+		<dt>⌫</dt>
+		<dd>The delete or backspace key. Located above the return key.</dd>
+
+		<dt>esc</dt>
+		<dd>The escape key. Usually on the top left corner of the keyboard.</dd>
+	</dl>
+	
+</body></html>

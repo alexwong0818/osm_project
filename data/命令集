@@ -1,0 +1,93 @@
+
+//参考
+https://yq.aliyun.com/articles/16907?spm=5176.8246799.0.0.akxaLN
+http://readcodelearn.com/notes/intro-osm-part-1.html
+
+
+//安装
+brew install postgresql
+brew install postgis
+brew install osm2postgresql
+brew install pgrouting
+brew install osm2pgrouting
+
+//数据导入命令
+createdb shanghai
+psql -d shanghai
+注意：要用superuser创建，否则没有修改权限。
+
+CREATE EXTENSION postgis;
+
+-- Enable Topology
+
+CREATE EXTENSION postgis_topology;
+
+-- fuzzy matching needed for Tiger
+
+CREATE EXTENSION fuzzystrmatch;
+
+-- 地理编码
+
+CREATE EXTENSION postgis_tiger_geocoder;
+
+-- 用于存储属性tags，key-value
+
+CREATE EXTENSION hstore;
+
+CREATE EXTENSION pgrouting;
+-- 线路规划
+
+//数据导入
+osm2pgsql -s -U superwyj -d shanghai /Users/mac020/Desktop/path/new/data/shanghai_china.osm.pbf -H localhost -W;
+
+
+//表check
+psql -d shanghai -c "select table_name, table_type from information_schema.tables where table_schema = 'public'"
+
+
+//导出地铁点到csv
+COPY (
+select osm_id, name,ST_AsGeoJSON(ST_Transform(way, 4326)) as geojson
+from planet_osm_point
+where railway = 'station'
+UNION
+select osm_id, name,ST_AsGeoJSON(ST_Transform(way, 4326)) as geojson
+from planet_osm_polygon
+where railway = 'station'
+UNION
+select osm_id, name,ST_AsGeoJSON(ST_Transform(way, 4326)) as geojson
+from planet_osm_line
+where railway = 'rail'
+UNION
+select osm_id, name,ST_AsGeoJSON(ST_Transform(way, 4326)) as geojson
+from planet_osm_line
+where railway = 'subway'
+)
+TO '/Users/mac020/Desktop/path/new/data/output2.csv'
+WITH csv HEADER;
+
+//车站
+COPY (
+select osm_id,name,operator,ST_AsGeoJSON(ST_Transform(way, 4326)) as geojson from planet_osm_point where highway = 'bus_stop'
+)
+TO '/Users/mac020/Desktop/path/new/data/chezhan.csv'
+WITH csv HEADER;
+
+
+-------------开始寻路---------
+
+//创建拓扑表
+CREATE TABLE myroads(id SERIAL primary key, source integer, target integer,lenght float8,geom text);
+
+//扩展字段（已有）
+ALTER TABLE myroads ADD COLUMN the_geom text;
+
+//导入数据
+INSERT INTO myroads(geom) SELECT way from planet_osm_line;
+
+//执行拓扑
+SELECT pgr_createTopology('myroads', 0.0001, 'geom', 'id')
+
+//检查拓扑
+SELECT  pgr_analyzeGraph('myroads',0.001,'geom','id','source','target');
+

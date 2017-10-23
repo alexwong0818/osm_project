@@ -1,0 +1,20 @@
+{
+  "name": "mapbox",
+  "version": "1.0.0",
+  "description": "map",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csv2geojson": "^5.0.2",
+    "d3": "^4.11.0",
+    "express": "^4.16.2",
+    "fs": "0.0.1-security",
+    "leaflet": "^1.2.0",
+    "mapbox-gl": "^0.40.1",
+    "save": "^2.3.1"
+  }
+}

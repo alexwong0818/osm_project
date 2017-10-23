@@ -1,0 +1,114 @@
+<!DOCTYPE html><html><head>
+	<meta charset=utf-8>
+	<title>Importing and Exporting Data</title>
+	<link rel=stylesheet href=style.css>
+</head><body>
+	<h1>Importing and Exporting data in Postico</h1>
+
+	<h2>Copy &amp; Paste</h2>
+	<p>
+		Copy&nbsp;&amp;&nbsp;Paste is the most convenient way to import and export data in Postico.
+	</p>
+	<p>
+		Postico, like most other Mac apps, copies tabular data in "Tab Separated Values" (TSV) format: columns are separated by tabs, and row are separated with newlines. The limitation of this format is that your data can't contain tabs or newlines. Postico replaces these special characters with spaces when you copy data to the clipboard.
+	</p>
+	<p>
+		You can also copy data in other formats using the "Copy Special" command.
+		Postico offers the following alternative formats for copying: TSV with headers, CSV, CSV with headers, SQL Insert Statements.
+	</p>
+	<p>
+		Postico also allows pasting data in TSV format.
+		This is great for importing data from spreadsheets in <b>Excel</b> or <b>Numbers</b>, or from MySQL databases using <b>Sequel Pro</b>, or even from tables on websites in <b>Safari</b>.
+	</p>
+	<p>
+		Here's how to paste data into Postico:
+	</p>
+	<ul>
+		<li>
+			Create a target table with all the columns you want to import, or use an existing table.
+		</li>
+		<li>
+			Arrange the columns in the target table in the same order as the original data you copied. You can move columns by dragging the column header.
+			(Don't worry if either the source or target table have extra columns at the end; Postico will simply ignore them)
+		</li>
+		<li>
+			Make sure that the keyboard focus is on the table view in Postico and paste your data.
+		</li>
+		<li>
+			You should now see all your new data highlighted in yellow.
+			Check that everything was pasted correctly, then click save to write changes to the database.
+		</li>
+	</ul>
+
+	<h2>Exporting CSV files</h2>
+	<p>
+		Postico can export tables and query results as "Comma Separated Values" (CSV) files.
+		You can export either a single table, or multiple tables at once.
+	</p>
+	<p>
+		When exporting the current table (by selecting "Export" from the File menu),
+		all rows in the table will be exported, even though Postico only displays the first page. If filters are active, they will be used, and only filtered rows will be exported.
+	</p>
+	<p>
+		Make sure the keyboard focus is on the table view when selecting export;
+		otherwise you may end up exporting the selected table in the sidebar.
+	</p>
+	<p>
+		You can export multiple tables by selecting them in the sidebar or in the grid view (hold down the shift or command keys). Then right-click and chose export from the context menu.
+		When exporting multiple tables,
+		Postico will create a folder containing one CSV file per table.
+	</p>
+	<p>
+		You can also export query results in the SQL Query view.
+	</p>
+	<h3>CSV Export Settings</h3>
+	<p>
+		Unfortunately CSV is a very losely defined format.
+		Applications implement CSV in very different ways.
+		This fact is made even worse by the fact that apps change behavior depending on your system's language &amp; region settings.
+	</p>
+	<p>
+		I've examined the CSV file support of popular applications, and I came to the conclusion that most apps understand one of two formats, which I call "International" and "Continental":
+	</p>
+	<ul>
+		<li>
+			The <b>International Format</b> is used in English speaking countries and Asia. It uses a period (.) as the decimal mark and a comma (,) as field separator. 
+		</li>
+		<li>
+			The <b>Continental Format</b> is used in continental Europe and South America. It uses a comma (,) as decimal mark and a semicolon (;) as field separator. 
+		</li>
+	</ul>
+	<p>
+		Most apps allow using double quotes (") around values that can contain special characters. This allows CSV to store data that contains special characters like the field separator or newlines. Postico also uses quotes:
+	</p>
+	<ul>
+		<li>
+			Numeric values are stored without quotes 
+		</li>
+		<li>
+			Strings are always surrounded by quotes 
+		</li>
+		<li>
+			NULL values are stored as empty fields (ie. two consecutive commas)
+		</li>
+		<li>
+			When a value contains a quote, the quote is doubled in the output
+		</li>
+	</ul>
+	<p>
+		This produces output compatible with the majority of applications I've tested.
+		However, there are two more settings (mostly for compatibility with Microsoft Excel):
+	</p>
+		<ul>
+		<li>
+			Allow Newlines: Some apps don't allow newlines in the data. You can uncheck this box to replace newlines with spaces.
+		</li>
+		<li>
+			Encoding: You should always choose Unicode/UTF-8 if possible.
+			However, some apps expect a legacy encoding.
+			Postico supports MacRoman and Windows Latin 1 as alternatives. 
+		</li>
+	</ul>
+
+
+</body></html>

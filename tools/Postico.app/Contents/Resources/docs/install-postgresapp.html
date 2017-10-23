@@ -1,0 +1,46 @@
+<!DOCTYPE html><html><head>
+	<meta charset=utf-8>
+	<title>Installing Postgres.app</title>
+	<link rel=stylesheet href=style.css>
+</head><body>
+	<h1>Setting up Postgres.app</h1>
+	
+	<h2>Installing Postgres.app</h2>
+	<p>
+		Postgres.app is by far the easiest way to install a local PostgreSQL server on your Mac.
+	</p>
+	<ul>
+		<li>Download Postgres.app from <a href="http://postgresapp.com">http://postgresapp.com</a></li>
+		<li>Double click</li>
+	</ul>
+	<p>
+		Postgres.app starts a PostgreSQL server running locally on your Mac.
+		The first time it starts it will automatically create a new data directory and set up an empty database.
+		After a few moments, the server will be running and waiting for connections.
+	</p>
+	<p>
+		Postgres.app can't start when another PostgreSQL server is already running on your computer.
+		If you run into problems, make sure to deactivate or uninstall other PostgreSQL installations.
+		Reboot your computer after uninstalling!
+	</p>
+	
+	
+	
+	<h2>Connecting to Postgres.app</h2>
+	<ul>
+		<li>
+			Open Postico and click on the “New Favorite” button.<br>
+			Leave all fields blank; the default values are suitable for connecting to Postgres.app.
+			Optionally provide a nickname, eg. “Postgres.app”.
+		</li>
+		<li>
+			Click “Connect”
+		</li>
+	</ul>
+	<p>
+		DONE! You should now see a mostly empty database window.
+		There is an “SQL Query” icon you can use to execute queries, 
+		and buttons in the bottom bar allow you to create tables and views.
+	</p>
+	
+</body></html>

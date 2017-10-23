@@ -1,0 +1,78 @@
+<!DOCTYPE html><html><head>
+	<meta charset=utf-8>
+	<title>Connecting to a local PostgreSQL server</title>
+	<link rel=stylesheet href=style.css>
+</head><body>
+	<h1>Connecting to a local PostgreSQL server</h1>
+	
+	
+	<h2>Postgres.app</h2>
+	<p>
+		To connect to Postgres.app, you can leave all fields blank.
+	</p>
+	<ul>
+		<li>Host: localhost</li>
+		<li>Port: 5432</li>
+		<li>User: <i>your user name</i></li>
+		<li>Password: <i>blank</i></li>
+		<li>Database: <i>your user name</i></li>
+	</ul>
+	<p>
+		See also: <a href="install-postgresapp.html">Installing Postgres.app</a>
+	</p>
+	
+	<h2>EnterpriseDB</h2>
+	<p>
+		To connect to a PostgreSQL server installed with the graphical installer from EnterpriseDB, click the “New Favorite” button and provide the following parameters:
+	</p>
+	<ul>
+		<li>Host: localhost</li>
+		<li>Port: 5432 <i>(can be changed during installation)</i> </li>
+		<li>User: postgres</li>
+		<li>Password: <i>selected during installation</i></li>
+		<li>Database: postgres</li>
+	</ul>
+	
+	<h2>MacPorts</h2>
+	<p>
+		To connect to a PostgreSQL server installed with MacPorts, use the following parameters:
+	</p>
+	<ul>
+		<li>Host: localhost</li>
+		<li>Port: 5432</li>
+		<li>User: postgres</li>
+		<li>Password: <i>blank</i></li>
+		<li>Database: postgres</li>
+	</ul>
+
+		
+	<h2>Firewalls &amp; Internet Filters</h2>
+	<p>
+		Some protection products interfere with TCP connections.
+		For example, a product named X3 Protect has been known to block connection attempts to local PostgreSQL servers.
+		If you are having trouble connecting to a local PostgreSQL server, try disabling your firewall, or add an exception for port 5432.
+	</p>
+	
+	<h2>“Resolving localhost failed”</h2>
+	<p>
+		This error message usually appears when there is a problem with the <tt>/etc/hosts</tt> file.
+		Make sure there is an entry for localhost. As a workaround, you can also type “127.0.0.1” into the host field instead of “localhost”.
+	</p>
+	
+	<h2>TCP vs. Socket connections</h2>
+	<p>
+		There are two ways to connect to a local PostgreSQL server:
+	</p>
+	<ul>
+		<li>Using a TCP connection (<tt>localhost</tt>, <tt>127.0.0.1</tt>, <tt>::1</tt>)</li>
+		<li>Using a Unix socket connection (<tt>/tmp/.s.PGSQL</tt>)</li>
+	</ul>
+	<p>
+		Postico always uses TCP connections.
+		Postico can't use socket connections because sandboxed apps are not allowed to access unix sockets outside their sandbox.
+	</p>
+	<p>
+		By default, PostgreSQL is always configured to listen for TCP connections on localhost, so that should not be a problem unless you explicitly disabled TCP connections.
+	</p>
+
+</body></html>

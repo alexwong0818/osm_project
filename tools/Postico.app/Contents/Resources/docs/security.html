@@ -1,0 +1,85 @@
+<!DOCTYPE html><html><head>
+	<meta charset=utf-8>
+	<title>Security</title>
+	<link rel=stylesheet href=style.css>
+</head><body>
+	<h1>Security in Postico</h1>
+	<p>
+		Because Postico is made specifically for the Mac, it can take advantage of the many security features built into OS X.
+	</p>
+	<h2>Encrypted Connections</h2>
+	<p>
+		Postico always tries to connect to PostgreSQL servers via an encrypted connection (SSL).
+		If the server does not support SSL, Postico will show a warning.
+		You should only connect without SSL if you are on a trusted network.
+		Never connect without encryption when you are on a public network!
+	</p>
+	<p>
+		As an exception to this rule, Postico doesn't require encryption when connecting to ‘localhost’.
+		(If your own computer is compromised, SSL won't help.)
+	</p>
+	<p>
+		Like your web browser, Postico will check the server certificate when connecting via SSL.
+		It will check if the server certificate is signed by a trusted certificate authority.
+		If the server uses a self-signed certficate, or the host name on the certificate doesn't match, Postico will show a warning dialog.
+		You must then verify the certificate yourself (check if the finger print matches), and choose to connect or not.
+		You can also choose to remember the certificate – then the server certificate will be added to your keychain and marked as trusted.
+	</p>
+	<p>
+		Postico also supports connecting via an SSH tunnel.
+		This is especially useful when connecting to a database server behind a firewall.
+		You can use SSH instead of SSL, or in addition to SSL.
+		When connecting to a SSH server, Postico checks if the host key is in your known_hosts file.
+		If it isn't, it will ask you to confirm the host key fingerprint, and remember the host key.
+		It will not modify your known_hosts file.
+		If there's a host key mismatch, Postico will refuse to connect.
+		If the key changed because someone reinstalled the server, you have to update your known_hosts file to allow Postico to connect again.
+	</p>
+	<h2>Client Certificates</h2>
+	<p>
+		Postico also supports using client certificates for authentication.
+		By default, Postico will try to use the certificate and key stored at the path ~/.postgresql/postgresql.crt and ~/.postgresql/postgresql.key.
+		You can also select a different certificate and key file per favorite:
+	</p>
+	<ol>
+		<li>Click the "Edit" button on the favorite</li>
+		<li>In the "Options" pop up menu, select "Use TLS Client Certificate"</li>
+		<li>Now make sure to select both a certificate file and the corresponding private key file (hold ⌘ to select multiple files)</li>
+	</ol>
+	<h2>Password Storage</h2>
+	<p>
+		If you check the “Save in Keychain” checkbox, Postico will store the passwords
+		in your login keychain. The passwords are stored safely encrypted on your hard drive.
+		This is much safer than storing the passwords in plain text. (Yes, there are apps that store passwords in plain text.)
+		If an attacker wants to extract a password from the keychain, even if they steal your computer, they will still need your keychain password.
+	</p>
+	<p>
+		If you don't check the “Save in Keychain” box, Postico will remember passwords until you quit.
+	</p>
+	<h2>Sandbox</h2>
+	<p>
+		Postico is a “sandboxed” application.
+		This means that it is isolated from other applications and has only limited access to your computer.
+		Postico can connect to the internet (it wouldn't be a good database client if it couldn't) and it can read/write user selected files (eg. for exporting favorites).
+		On the other hand, Postico has no access to stuff it doesn't need, like your emails or your camera.
+	</p>
+	<p>Postico has the following sandbox privileges:</p>
+	<ul>
+		<li>Outgoing Network Connections</li>
+		<li>Incoming Network Connections (needed for SSH tunnels)</li>
+		<li>Read and Write user selected files</li>
+		<li>Read-only access to the ~/.ssh/known_hosts file</li>
+	</ul>
+	<p>
+		Sandboxing is mainly a damage containment technique.
+		It reduces the risk from security vulnerabilities in the software.
+		If an attacker finds an exploit in Postico,
+		they can not use it to take control of your computer because of the limits set by the sandbox.
+	</p>
+	<p>
+		Sandboxing also prevents you from malicious developers.
+		A sandboxed application can not simply send a copy of your address book to some
+		server on the internet – unless it has the required privileges.
+		(Unfortunately there is no easy way to check what privileges a sandboxed application has)
+	</p>
+</body></html>

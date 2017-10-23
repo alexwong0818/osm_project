@@ -1,0 +1,6 @@
+.nyc_output/
+coverage/
+node_modules/
+dist/
+npm-debug.log
+test_bundle.html

@@ -1,0 +1,130 @@
+<!DOCTYPE html><html><head>
+	<meta charset=utf-8>
+	<title>Working with Connection Favorites in Postico</title>
+	<link rel=stylesheet href=style.css>
+</head><body>
+	<h1>Working with Connection Favorites</h1>
+	<p>
+		To connect to a PostgreSQL server with Postico, you must first create a favorite.
+		The favorite window is shown on launch, but you can always bring it to the front by pressing&nbsp;⌘N.
+	</p>
+	<p>	
+		A favorite contains parameters for connecting to a server.
+		Some connection parameters are optional.
+		For example, if you use <a href="http://postgresapp.com/">Postgres.app</a> to run a local server, you can leave everything as default, just click ‘Connect’.
+	</p>
+	
+	<h2>PostgreSQL server parameters</h2>
+		<p>
+			<b>Host:</b> the host name or IP  address of the PostgreSQL server. Use 'localhost' to connect to a server running on your Mac.
+		</p>
+		<p>
+			<b>Port:</b> leave blank for default value of 5432.
+		</p>
+		<p>
+			<b>User:</b> leave blank to use the same as your Mac login name
+		</p>
+		<p>
+			<b>Password:</b> leave blank to have Postico prompt you for password every time you connect (if a password is required).
+		</p>
+		<p>
+			<b>Save in Keychain</b>: Check to store the password securely in your keychain. Otherwise the password will only be remembered until you quit the application.
+		</p>
+		<p>
+			<b>Database:</b> Provide the name of a database on the server to connect to. You must provide the name of a database on the server, even if you want to show a list of all databases when connecting (see below). Leave blank to use the same as the user name. If unsure, try 'postgres'.
+		</p>
+
+	<h2>Show All Databases</h2>
+	<p>
+		By default, Postico will open the database you chose when connecting to a server.
+		If you'd rather see a list of all databases on the server when connecting, select the “Show All Databases” option from the gear menu.
+	</p>
+	
+	<h2>Favorite Colors</h2>
+	<p>
+		Also in the “Options” menu, you can choose a highlight color for each favorite.
+		When connected, the status display will be highlighted with the selected color.
+	</p>
+	
+	<h2>SSH Tunnels</h2>
+	<p>
+		If your server is behind a Firewall, or your server doesn't support SSL, you can connect through a SSH tunnel.
+		Just select “Connect via SSH” from the “Options” popup menu.
+	</p>
+	<p>
+		
+	</p>
+	<p>
+		<b>SSH Host:</b> the host name or IP  address of the SSH server. Can not be left blank.
+		If the SSH server is running on the same machine as the PostgreSQL server, type the host name here, and type “localhost” in the PostgreSQL host field.
+		</p>
+		<p>
+			<b>Port:</b> leave blank for default value of 22.
+		</p>
+		<p>
+			<b>User:</b> leave blank to use the same as your Mac login name
+		</p>
+		<p>
+			<b>Password:</b> To use password authentication, provide a password.
+		</p>
+		<p>
+			<b>Private Key:</b> To use key based authentication, click the button to select a private key file. If the key is encrypted, Postico will show a prompt for the passphrase when connecting.
+		</p>
+
+	
+	
+	<h2>Sharing Favorites</h2>
+	<h3>Exporting Favorites</h3>
+	<p>
+		To share a connection favorite with another user of Postico, right click on it an select ‘Export Favorite…’.
+		You have the option of including the password and query history in the favorite file.
+		You can also choose to encrypt the stored password and query history in the favorite file.
+	</p>
+	<p>
+		An even more convenient way to export a favorite is to simply drag it to the Finder.
+		<b>Beware:</b> The dragged file will contain the password in plain text.
+	</p>
+	<p>
+		Favorite files are stored in the Binary Property List format.
+		You can convert them to XML format using the plutil program:
+		<tt>plutil -convert xml1 example.pgfav</tt>. Postico will open files in XML format just fine, so you can easily generate Postico favorite files yourself.
+	</p>
+	<h3>Importing Favorites</h3>
+	<p>
+		To import a Postico favorite file, just drag it on the Favorites window from the Finder.
+		You can also drag them on the Postico app icon.
+		PG Commander favorite files are also compatible with Postico.
+	</p>
+	
+	<h2>URL Scheme</h2>
+	<p>
+		Postico supports the PostgreSQL URL scheme.
+		Simply click on an URL starting with <tt>postgres://</tt> or <tt>postgresql://</tt> to immediately connect to that server.
+		A favorite for the server will be added automatically if it doesn't exist yet.
+	</p>
+	<p>
+		You can also use the URL scheme to open Postico from the command line.
+		Try typing the following command in Terminal: <tt>open postgres://localhost</tt>
+	</p>
+	<p>
+		To copy an URL that corresponds to a favorite, right-click on it and choose the ‘Copy URL…’ command in the context menu.
+	</p>
+	<p>
+		The following URLs are recognized by Postico:
+	</p>
+	<ul>
+		<li><tt>postgres://user:password@host:port/database</tt></li>
+		<li><tt>postgresql://user:password@host:port/database</tt></li>
+		<li><tt>postgres+ssh://sshuser:sshpassword@sshhost:sshport/user:password@host/database</tt></li>
+		<li><tt>postgresql+ssh://sshuser:sshpassword@sshhost:sshport/user:password@host/database</tt></li>
+	</ul>
+	<p>
+		For more information about PostreSQL connection URLs, please refer to the <a href="http://www.postgresql.org/docs/current/interactive/libpq-connect.html#LIBPQ-CONNSTRING">section on connection strings</a> in the online documentation of PostgreSQL.
+		However, not all connection parameters are supported by Postico.
+	</p>
+	<p>
+		URLs are also a great way to share connection parameters with someone who isn't using Postico.
+		You can right click on favorites to copy the connection URL.
+	</p>
+
+</body></html>

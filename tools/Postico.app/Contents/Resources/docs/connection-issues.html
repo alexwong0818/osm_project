@@ -1,0 +1,64 @@
+<!DOCTYPE html><html><head>
+	<meta charset=utf-8>
+	<title></title>
+	<link rel=stylesheet href=style.css>
+</head><body>
+	<h1>Common connection issues</h1>
+	<ul>
+		<li>
+			<p>
+				When Postico is stuck at <i>“Negotiating SSL...”</i>
+			</p>
+			<p>
+				Usually this is caused by a firewall that silently discards packets.
+				Make sure that your firewall is configured to allow your computer to connect to the PostgreSQL server
+				(for example by whitelisting your IP address).
+			</p>
+			<p>
+				Sometimes you can use an SSH tunnel to circumvent a firewall.
+			</p>
+		</li>
+		
+		<li>
+			<p><i>could not connect to server: Connection refused<br>
+	Is the server running on host "xyz" and accepting
+	TCP/IP connections on port 5432?</i></p>
+			<p>
+				This happens when the PostgreSQL server is not running, or when it is not listening for network connections.
+			</p>
+			<p>
+				Make sure that the <i>listen_addresses</i> parameter is configured correctly in the file postgresql.conf (you can find it in the data directory).
+			</p>
+		</li>
+
+		<li>
+			<p>Network filters and security software</p>
+			<p>
+				Many connection problems are caused by network filters and security software like anti-virus.
+				These tools often block or intercept network connections.
+				The resulting issues are generally very hard to debug and can lead to a number of error messages.
+				If you use any software that interferes with the network stack, contact the vendor to find out how you can configure it to be compatible with PostgreSQL.
+				Some security software might not be compatible at all, and you'll have to disable it before you can connect to a PostgreSQL server.
+			</p>
+		</li>
+
+		<li>
+			<p>When Postico says, <i>“Resolving localhost failed. Hostname not found.”</i></p>
+			<p>
+				This message is usually caused by a problem in your /etc/hosts file.
+				The default contents of this file are (on OS X 10.11):
+			</p>
+			<pre>##
+# Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+127.0.0.1	localhost
+255.255.255.255	broadcasthost
+::1             localhost 
+</pre>
+			<p>Reverting changes to /etc/hosts should fix this connection issue.</p>
+		</li>
+	</ul>
+</body></html>

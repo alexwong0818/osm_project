@@ -1,0 +1,78 @@
+body {
+	font-family: Helvetica;
+	font-size: 13px;
+	margin: 0;
+	padding: 10pt;
+	background: #fff;
+}
+
+body > h1 {
+	margin: 1em auto 0;
+	width: 600px;
+	font-weight: normal;
+}
+
+body > h2 {
+	margin: 2em auto 0;
+	width: 600px;
+	font-weight: normal;
+}
+
+body > h3 {
+	margin: 2em auto 0;
+	width: 600px;
+	font-weight: normal;
+}
+
+
+body > p {
+	margin: 1em auto 0.5em;
+	width: 600px;
+	line-height: 1.4em;
+}
+
+body > ul, body > ol, body > dl {
+	margin: 1em auto 0.5em;
+	width: 600px;
+	line-height: 1.4em;
+}
+
+dt {
+	float: left;
+	clear: left;
+	width: 44px;
+	text-align: right;
+	font-family: -apple-system;
+	background: rgba(0,0,0,0.1);
+	border: 1px solid rgba(0,0,0,0.2);
+	padding-right: 4px;
+	border-radius: 3px;
+	font-size: 90%;
+	line-height: 135%;
+}
+
+dd {
+	margin-left: 60px;
+	margin-bottom: 10px;
+}
+
+tt {
+	background: rgba(255,255,255,0.6);
+	padding: 1px 5px;
+	white-space: nowrap;
+	display: inline-block;
+	font-family: Menlo, Monaco, monospace;
+}
+
+body > img {
+	display: block;
+	margin: 0 auto;
+}
+
+body > pre {
+	margin: 2em auto 0.5em;
+	width: 600px;
+	line-height: 1.4em;
+	font-size: 80%;
+	color: #666;
+}
