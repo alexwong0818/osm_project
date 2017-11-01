@@ -1,0 +1,135 @@
+doctype html
+html
+  head
+    meta(http-equiv="Content-Type" content="text/html; charset=utf-8")
+    meta(name="keywords" content="HTML, CSS, leaflet, JavaScript, openshift, nodejs, openstreetmap")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(name="author" content="brandboat")
+    link(href="/css/route.css" rel="stylesheet")
+    link(href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css')
+    link(href="/semantic/packaged/css/semantic.min.css" rel="stylesheet")
+    link(href="/leaflet/leaflet.css" rel="stylesheet")
+    link(href="/LeafletMarkerCluster/MarkerCluster.css" rel="stylesheet")
+    link(href="/LeafletMarkerCluster/MarkerCluster.Default.css" rel="stylesheet")
+    script(src="/semantic/packaged/javascript/semantic.js" type="text/script")
+    script(src="/leaflet/leaflet.js" type="text/javascript")
+    script(src="/LeafletMarkerCluster/leaflet.markercluster.js" type="text/javascript")
+    script(src="/javascripts/plugins/Leaflet.MakiMarkers.js" type="text/javascript")
+    script(src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.2/jquery.ui.touch-punch.min.js")
+    title PGProject
+
+  body
+    div(class="ui dimmable dimmed" id="hidden-something")
+      div(class="ui simple dimmer")
+        div(class="ui segment" id="geocoder-menu")
+          div(class="ui divided list" id="geocoder-result")
+          div(class="ui red button" id="gui-button-cancel") Cancel
+    div(class="ui fixed inverted segment" id="headerPanel")
+      h1(class="ui inverted header")
+        div(class="content") 车巴达路网系统
+          <!--div(class="sub header") brandboat-->
+    div(class="ui fixed inverted vertical icon menu" id="leftPanel")
+      div(class="header item") 王义吉
+      a(class="item" id="routing")
+        <i class="big road icon"></i> 线路规划
+      a(class="item" id="search")
+        <i class="big search icon"></i> 搜索
+      a(class="item" id="poi")
+        <i class="big map marker icon"></i> 其他
+    div(class="ui vertically segment" id="routingFunction")
+      h2(class="ui header")
+        a(class="item")
+          <i class="location icon"></i> 线路
+      div(id="routing-menu-controll")
+        div(class="ui form")
+          div(class="ui inline fields")
+            div(class="ui inline field")
+              div(class="ui horizontal large label") 起:
+              div(class="ui input" id="input-source")
+                input(type="text" placeholder="请输入起点..." id="gui-input-source")
+            div(class="ui inline field")
+              div(class="ui icon button" id="gui-reset-source")
+                i(class="remove icon")
+          div(class="ui inline fields")
+            div(class="ui inline field")
+              div(class="ui horizontal large label") 终:
+              div(class="ui input" id="input-target")
+                input(type="text" placeholder="请输入终点..." id="gui-input-target")
+            div(class="ui inline field")
+              div(class="ui icon button" id="gui-reset-target")
+                i(class="remove icon")
+          div(class="ui inline field")
+            div(class="ui red button" id="gui-reset") 重置
+      div(id="menu-show")
+        div(id="road")
+    div(class="ui vertically segment" id="searchFunction")
+      h2(class="ui header")
+        a(class="item")
+          <i class="search icon"></i> Search
+      div(class="ui divider")
+      p Search for an Address or input the coordinate to add to your trip.
+      div(class="ui fluid large icon input")
+        input(type="text" placeholder="Search..." id="gui-input-search")
+        <i class="search icon"></i>
+      div(class="ui divider")
+      div(class="ui segment" id="search-point-result")
+    div(class="ui vertically segment" id="poiFunction")
+      h2(class="ui center aligned header")
+        a(class="item")
+          <i class="map marker icon"></i> Things to do
+      div(class="ui divider")
+      div(class="ui checkbox" id="artsEnterainment")
+        input(type="checkbox" name="artsEnterainment")
+        label Arts & Enterainment
+      div(class="ui divider")
+      div(class="ui checkbox" id="collegeUniversity")
+        input(type="checkbox" name="collegeUniversity")
+        label College & University
+      div(class="ui divider")
+      div(class="ui checkbox" id="food")
+        input(type="checkbox" name="food")
+        label Food
+      div(class="ui divider")
+      div(class="ui checkbox" id="nightLifeSpot")
+        input(type="checkbox" name="nightLifeSpot")
+        label NightLife Spot
+      div(class="ui divider")
+      div(class="ui checkbox" id="outdoorsRecreation")
+        input(type="checkbox" name="outdoorsRecreation")
+        label Outdoors Recreation
+      div(class="ui divider")
+      div(class="ui checkbox" id="professionalOthersPlaces")
+        input(type="checkbox" name="professionalOthersPlaces")
+        label Others Places
+      div(class="ui divider")
+      div(class="ui checkbox" id="residence")
+        input(type="checkbox" name="residence")
+        label Residence
+      div(class="ui divider")
+      div(class="ui checkbox" id="shopService")
+        input(type="checkbox" name="shopService")
+        label Shop Service
+      div(class="ui divider")
+      div(class="ui checkbox" id="travelTransport")
+        input(type="checkbox" name="travelTransport")
+        label Travel Transport
+    div(id="map")
+
+    script(type="text/javascript", src="/javascripts/ROSM.base.js")
+    script(type="text/javascript", src="/javascripts/ROSM.classes.js")
+    script(type="text/javascript", src="/javascripts/ROSM.Map.js")
+    script(type="text/javascript", src="/javascripts/ROSM.Markers.js")
+    script(type="text/javascript", src="/javascripts/ROSM.Marker.js")
+    script(type="text/javascript", src="/javascripts/ROSM.Routing.js")
+    script(type="text/javascript", src="/javascripts/ROSM.Route.js")
+    script(type="text/javascript", src="/javascripts/ROSM.SimpleRoute.js")
+    script(type="text/javascript", src="/javascripts/ROSM.RoutingGeometry.js")
+    script(type="text/javascript", src="/javascripts/ROSM.RoutingDescription.js")
+    script(type="text/javascript", src="/javascripts/ROSM.GUI.js")
+    script(type="text/javascript", src="/javascripts/ROSM.JSON.js")
+    script(type="text/javascript", src="/javascripts/ROSM.GeoJson.js")
+    script(type="text/javascript", src="/javascripts/ROSM.Geocoder.js")
+    script(type="text/javascript", src="/javascripts/ROSM.POI.js")
+
+    script(type="text/javascript", src="/javascripts/main.js")

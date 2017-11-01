@@ -1,7 +1,10 @@
 
 //参考
 https://yq.aliyun.com/articles/16907?spm=5176.8246799.0.0.akxaLN
+//澳大利亚小哥
 http://readcodelearn.com/notes/intro-osm-part-1.html
+//论文
+http://www.doc88.com/p-5704421397469.html
 
 
 //安装
@@ -12,7 +15,7 @@ brew install pgrouting
 brew install osm2pgrouting
 
 //数据导入命令
-createdb shanghai
+createdb shanghai -O superuser
 psql -d shanghai
 注意：要用superuser创建，否则没有修改权限。
 
@@ -37,8 +40,11 @@ CREATE EXTENSION hstore;
 CREATE EXTENSION pgrouting;
 -- 线路规划
 
-//数据导入
-osm2pgsql -s -U superwyj -d shanghai /Users/mac020/Desktop/path/new/data/shanghai_china.osm.pbf -H localhost -W;
+//数据导入(node point line road格式)
+osm2pgsql -s -U wangyiji -d wuhan /Users/mac020/desktop/path/osm_my_git/data/wuhan_china.osm.pbf -H localhost -W;
+
+//数据导入(寻路规划)
+osm2pgrouting --f /Users/mac020/Desktop/path/osm_my_git/data/shanghai_china.osm --conf /usr/local/Cellar/osm2pgrouting/2.3.2/share/osm2pgrouting/mapconfig.xml --dbname shanghai --username wangyiji --clean
 
 
 //表check
@@ -75,19 +81,81 @@ WITH csv HEADER;
 
 
 -------------开始寻路---------
-
-//创建拓扑表
+//创建拓扑表(简单)
 CREATE TABLE myroads(id SERIAL primary key, source integer, target integer,lenght float8,geom text);
 
-//扩展字段（已有）
-ALTER TABLE myroads ADD COLUMN the_geom text;
+//创建拓扑表(复杂)
+ALTER TABLE myroads ADD COLUMN source integer,
+ALTER TABLE myroads ADD COLUMN target integer,
+
+
+
+//建索引
+CREATE INDEX source_idx ON myroads("source");
+CREATE INDEX target_idx ON myroads("target");
+
+
+//扩展字段（可选）
+ALTER TABLE myroads ADD COLUMN cost integer;
+ALTER TABLE myroads ADD COLUMN geom geometry;
+ALTER TABLE myroads ADD COLUMN dir text;
+ALTER TABLE myroads ADD COLUMN cost bigint;
+ALTER TABLE myroads ADD COLUMN reverse_cost bigint;
+ALTER TABLE myroads ADD COLUMN osm_id bigint;
 
 //导入数据
-INSERT INTO myroads(geom) SELECT way from planet_osm_line;
+INSERT INTO myroads(geom,osm_id) SELECT way,osm_id from planet_osm_line;
+INSERT INTO myroads(geom,osm_id) SELECT way,osm_id from planet_osm_roads;
 
 //执行拓扑
-SELECT pgr_createTopology('myroads', 0.0001, 'geom', 'id')
+SELECT pgr_createTopology('myroads', 0.0001, 'geom', 'id');
 
-//检查拓扑
+//补全cost(线路长度)
+update myroads set cost = ST_Length(geom);
+
+//分析拓扑
 SELECT  pgr_analyzeGraph('myroads',0.001,'geom','id','source','target');
+
+SELECT  pgr_createVerticesTable('myroads','geom','source','target');
+
+
+SELECT pgr_analyzeOneway('myroads',
+ARRAY['', 'B', 'TF'],
+ARRAY['', 'B', 'FT'],
+ARRAY['', 'B', 'FT'],
+ARRAY['', 'B', 'TF'],
+oneway:='dir');
+
+//寻路
+SELECT * FROM pgr_dijkstra(
+    'SELECT id, source, target, cost FROM myroads',
+    1, 11
+);
+
+//删除表
+drop table [表名];
+//删除字段
+alter table myroads drop column cost_len;
+
+
+SELECT * FROM pgr_dijkstra('SELECT gid as id, source, target, cost, reverse_cost FROM ways',8031,5226);
+
+
+
+WITH result AS (SELECT * 
+FROM ways JOIN (SELECT * 
+pgr_dijkstra('SELECT gid AS id, source, target, length AS cost 
+FROM ways', 19842, 6008, false)) 
+AS route ON ways.gid = route.edge_id ORDER BY rank) 
+SELECT ST_AsEWKT(result.the_geom), name from result;
+
+
+
+
+
+
+
+
+
+
 
