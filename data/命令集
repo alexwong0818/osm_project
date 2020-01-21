@@ -14,6 +14,8 @@ brew install osm2postgresql
 brew install pgrouting
 brew install osm2pgrouting
 
+create user wangyiji superuser password '111111'
+
 //数据导入命令
 createdb shanghai -O superuser
 psql -d shanghai
@@ -42,6 +44,8 @@ CREATE EXTENSION pgrouting;
 
 //数据导入(node point line road格式)
 osm2pgsql -s -U wangyiji -d wuhan /Users/mac020/desktop/path/osm_my_git/data/wuhan_china.osm.pbf -H localhost -W;
+
+if you are using a mac, .pbf (compresssed) format support is not compiled into the tool at the time of the writing. You will want to download either .osm or where available .osm.bz2.
 
 //数据导入(寻路规划)
 osm2pgrouting --f /Users/mac020/Desktop/path/osm_my_git/data/shanghai_china.osm --conf /usr/local/Cellar/osm2pgrouting/2.3.2/share/osm2pgrouting/mapconfig.xml --dbname shanghai --username wangyiji --clean

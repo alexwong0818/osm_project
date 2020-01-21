@@ -11,9 +11,9 @@ var config = {
     },
     database: {
       url: 'postgresql://127.0.0.1:5432',
-      dbname: 'shanghai',
+      dbname: 'chinaosm',
       username: 'wangyiji',
-      password: '123456',
+      password: '111111',
     },
     root: rootPath
   },

@@ -1457,7 +1457,7 @@ body > .ui.grid {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: rgba(219, 19, 19, 0);
   vertical-align: middle;
   line-height: 1;
   text-decoration: none;
