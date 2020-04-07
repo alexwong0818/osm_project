@@ -157,6 +157,15 @@ SELECT ST_AsEWKT(result.the_geom), name from result;
 
 
 
+SELECT id FROM ways_vertices_pgr ORDER BY st_distance(the_geom, st_setsrid(st_makepoint(reqPoint[i].lng + "," + reqPoint[i].lat + "), 4326)) LIMIT 1; 取得地圖上離reqPoint[i]最近的路的其中一點
+
+WITH result AS (SELECT * FROM ways JOIN (SELECT seq, id1 AS node, id2 AS edge_id, cost, ROW_NUMBER() OVER (PARTITION BY 1) AS rank FROM pgr_dijkstra('SELECT gid AS id, source::integer, target::integer, length::double precision AS cost FROM ways'," + begin + ", " + end + ", false, false)) AS route ON ways.gid = route.edge_id ORDER BY rank) SELECT ST_AsEWKT(result.the_geom), name from result; 這段很長，我將他拆開來討論
+
+pgr_dijkstra('SELECT gid AS id, source::integer, target::integer, length::double precision AS cost FROM ways'," + begin + ", " + end + ", false, false) 這段是利用pgr_dijkstra來取得begin和end中的最短路徑。
+SELECT seq, id1 AS node, id2 AS edge_id, cost, ROW_NUMBER() OVER (PARTITION BY 1) AS rank FROM pgr_dijkstra......ORDER BY rank 本來我沒有加ROW_NUMBER() OVER (PARTITION BY 1) AS rank，但後來發現，pgrouting他所回傳的路徑並沒有按照順序，這是他的一大缺點…所以我必須額外幫他增加一個欄位來紀錄路徑順序，並按照順序排列。
+SELECT * FROM ways JOIN...ON ways.gid = route.edge_id 這段是因為，pgr_dijkstra，回傳的東西裡頭並沒有路徑軌跡點，只有他的id，所以必須再跟ways做join來取得路徑軌跡點
+WITH result AS...SELECT ST_AsEWKT(result.the_geom), name from result; 最後將所有得到的結果命為 result table，且因為其軌跡直為 linestring，為了再網頁中顯示，必須再將他轉為一般座標點，所以用 ST_AsEWKT 將 result 底下存linestring的欄位the_geom將其轉為一般座標點。
+
 
 
 

@@ -19,7 +19,8 @@ exports.pgr_dijkstra = function(req, res) {
   async.waterfall([
       function(callback) {
         eliminate(req.query.latlngs, callback);
-      }, function(points, callback) {
+      }, 
+      function(points, callback) {
         getPgrVertices(points, callback);
       },
       function(routes, callback) {
@@ -56,14 +57,13 @@ exports.pgr_dijkstra = function(req, res) {
       var qStr = "SELECT id FROM ways_vertices_pgr ORDER BY " + 
           "st_distance(the_geom, st_setsrid(st_makepoint(" +
           point.lng + "," + point.lat + "), 4326)) LIMIT 1;";
-      console.log('------------------');
+      console.log('getPgrVertices------------------');
       console.log('sql '+qStr);
       client.query(qStr, function(err,result) {
         if(err) {
           callback(err, null);
         } else {
-          console.log('====================');
-          console.log('sql'+result.rows[0].id);
+          console.log('nearest point result: '+result.rows[0].id);
           callback(null, result.rows[0].id);
         }
       });
@@ -107,7 +107,7 @@ exports.pgr_dijkstra = function(req, res) {
           console.log(qStr);
           return console.error('✗ Postgresql Running Query Error', err);
         }
-        console.log("success------------------------"+result);
+        console.log("dijkstra routing success------------------------"+result.constructor.name);
         var r = parsingData(result.rows);
 
         var queryStreets = collectLines(r);

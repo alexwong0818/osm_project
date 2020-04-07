@@ -1,6 +1,7 @@
 
 ROSM.GUI = {
   init: function() {
+    console.log('-------------------ROSM.GUI.Init--------------------------');
     document.getElementById("gui-reset").onclick = function() {ROSM.GUI.resetRouting()};
     $("#gui-input-source").keyup(function(event) {if(event.keyCode == 13) ROSM.GUI.inputChanged("hidden-something", ROSM.C.SOURCE_LABEL, function() {
       ROSM.G.route.reset();
@@ -36,6 +37,7 @@ ROSM.GUI = {
   },
 
   inputFocus: function(marker_id, i) {
+    console.log('-------------------inputFocus--------------------------');
     if(ROSM.G.markers.hasSource() && marker_id === ROSM.C.SOURCE_LABEL) {
       ROSM.G.markers.route[0].centerView();
     } else if(ROSM.G.markers.hasTarget() && marker_id === ROSM.C.TARGET_LABEL) {
@@ -62,6 +64,7 @@ ROSM.GUI = {
   },
 
   resetInput: function(marker_id) {
+    console.log('-------------------resetInput--------------------------');
     if (marker_id === ROSM.C.SOURCE_LABEL) {
         ROSM.G.markers.removeMarker(0);
     } else if (marker_id === ROSM.C.TARGET_LABEL) {
@@ -70,6 +73,7 @@ ROSM.GUI = {
   },
 
   resetRouting: function() {
+    console.log('-------------------resetRouting--------------------------');
     document.getElementById('gui-input-source').value = "";
     document.getElementById('gui-input-target').value = "";
 
@@ -80,6 +84,7 @@ ROSM.GUI = {
   },
 
   showRouteFunction: function() {
+    console.log('-------------------showRouteFunction--------------------------');
     var r = 0;
     var s = 0;
     if($('#routingFunction').position().left === $('#leftPanel').width()) {
@@ -96,6 +101,7 @@ ROSM.GUI = {
   },
 
   showSearchFunction: function() {
+    console.log('-------------------showSearchFunction--------------------------');
     var r = 0;
     var s = 0;
     if($('#searchFunction').position().left === $('#leftPanel').width()) {
@@ -153,6 +159,8 @@ ROSM.GUI = {
   },
 
   checkbox: function(category) {
+    console.log('-------------------checkbox click--------------------------');
+    console.log(category);
     var cate = "#" + category;
     var cb = $(cate).find("input");
     var bounds = ROSM.G.map.getBounds();
