@@ -21,13 +21,14 @@ createdb shanghai -O superuser
 psql -d shanghai
 注意：要用superuser创建，否则没有修改权限。
 
+-- 最核心的gis扩展
 CREATE EXTENSION postgis;
 
--- Enable Topology
+-- 增加 Topology扩展
 
 CREATE EXTENSION postgis_topology;
 
--- fuzzy matching needed for Tiger
+-- Tiger用以支持模糊匹配
 
 CREATE EXTENSION fuzzystrmatch;
 
@@ -39,8 +40,10 @@ CREATE EXTENSION postgis_tiger_geocoder;
 
 CREATE EXTENSION hstore;
 
-CREATE EXTENSION pgrouting;
 -- 线路规划
+
+CREATE EXTENSION pgrouting;
+
 
 //数据导入(node point line road格式)
 osm2pgsql -s -U wangyiji -d wuhan /Users/mac020/desktop/path/osm_my_git/data/wuhan_china.osm.pbf -H localhost -W;
@@ -48,7 +51,7 @@ osm2pgsql -s -U wangyiji -d wuhan /Users/mac020/desktop/path/osm_my_git/data/wuh
 if you are using a mac, .pbf (compresssed) format support is not compiled into the tool at the time of the writing. You will want to download either .osm or where available .osm.bz2.
 
 //数据导入(寻路规划)
-osm2pgrouting --f /Users/mac020/Desktop/path/osm_my_git/data/shanghai_china.osm --conf /usr/local/Cellar/osm2pgrouting/2.3.2/share/osm2pgrouting/mapconfig.xml --dbname shanghai --username wangyiji --clean
+osm2pgrouting --f /Users/alex.wang/Documents/GitHub/GIS/data/armenia-latest.osm --conf /usr/local/Cellar/osm2pgrouting/2.3.6_1/share/osm2pgrouting/mapconfig.xml --dbname ChinaOSM --username wangyiji --clean
 
 
 //表check
