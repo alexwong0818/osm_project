@@ -40,8 +40,6 @@ var config = {
       hostname: 'localhost',
     },
     database: {
-      // url: 'postgresql://127.0.0.1:5432',
-      // table_name: 'parks'
       username: 'brandboat',
       password: '1234',
       dbname: 'test'
