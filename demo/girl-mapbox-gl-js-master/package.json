@@ -69,7 +69,7 @@
     "github-slugger": "^1.1.1",
     "gl": "^4.0.1",
     "glob": "^7.0.3",
-    "highlight.js": "^9.9.0",
+    "highlight.js": "^10.1.2",
     "in-publish": "^2.0.0",
     "jsdom": "^11.2.0",
     "json-stringify-pretty-compact": "^1.0.4",
