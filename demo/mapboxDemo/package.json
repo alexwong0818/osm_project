@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "csv2geojson": "^5.0.2",
-    "d3": "^4.11.0",
+    "d3": "^7.6.1",
     "express": "^4.16.2",
     "fs": "0.0.1-security",
     "leaflet": "^1.2.0",
